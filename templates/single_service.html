@@ -1,0 +1,161 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load django_template_maths %}
+
+
+{%block content%}
+
+{%if service%}
+
+<div class="container single_product_container">
+    <div class="row">
+        <div class="col">
+
+            <!-- Breadcrumbs -->
+
+            <div class="breadcrumbs d-flex flex-row align-items-center">
+                <ul>
+                    <li><a href="{%url 'home'%}">Home</a></li>
+                    <li class="active"><a href="#"><i class="fa fa-angle-right" aria-hidden="true"></i>{{service.title}}</a></li>
+                </ul>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-7">
+            <div class="single_product_pics">
+                <div class="row">
+                    <div class="col-lg-3 thumbnails_col order-lg-1 order-2">
+                        <div class="single_product_thumbnails">
+                            <ul>
+                                <li><img src="{{service.photo.url}}" ></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-lg-9 image_col order-lg-2 order-1">
+                        <div class="single_product_image">
+                            <div class="single_product_image_background" style="background-image:url({{STATIC_URL}}{{service.photo.url}})"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-5">
+            <div class="product_details">
+                <div class="product_details_title">
+                    <h2>{{service.title}}</h2>
+                    <p>{{service.summary}}</p>
+                </div>
+                <div class="free_delivery d-flex flex-row align-items-center justify-content-center">
+                    <button class="btn-primary btn-block btn-lg" data-toggle="modal" data-target="#inquiryModal">Make An Inquiry</button>
+                </div>
+                <div class="original_price">ugx {{service.price|mul:1.04|add_decimal:1}}</div>
+                <div class="product_price">ugx {{service.price}}</div>
+                
+                
+                <div class="quantity d-flex flex-column flex-sm-row align-items-sm-center">
+                   
+                    <div class="red_button add_to_cart_button"><a href="{%url 'contact'%}">make inquire</a></div>
+                    <div class="product_favorite d-flex flex-column align-items-center justify-content-center"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<!-- Tabs -->
+
+<div class="tabs_section_container">
+
+    <div class="container">
+        
+        <div class="row">
+            <div class="col">
+
+              <p>{{service.description}}</p>
+                
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<!-- Benefit -->
+
+<div class="benefit">
+    <div class="container">
+        <div class="row benefit_row">
+           
+           
+            
+            <div class="col-lg-3 benefit_col">
+                <div class="benefit_item d-flex flex-row align-items-center">
+                    <div class="benefit_icon"><i class="fa fa-clock-o" aria-hidden="true"></i></div>
+                    <div class="benefit_content">
+                        <h6>opening all week</h6>
+                        <p>8AM - 09PM</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Newsletter -->
+
+
+<div class="modal fade" id="inquiryModal" role="dialog">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="inquiryModalLabel">Make An Inquiry</h5>
+          <button type="button" class="close" data-dismiss="modal">
+            <span>&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form action="{% url 'contact' %}" method="POST">
+            {% csrf_token %}
+            {% if user.is_authenticated %}
+              <input type="hidden" name="user_id" value="{{ user.id }}">
+            {% else %}
+              <input type="hidden" name="user_id" value="0">
+            {% endif %}
+              <input type="hidden" name="service_id" value="{{ service.id }}">
+            <div class="form-group">
+              <label for="product_name" class="col-form-label">service:</label>
+              <input type="text" name="service_title" class="form-control" value="{{ service.title }}">
+            </div>
+            <div class="form-group">
+              <label for="name" class="col-form-label">Name:</label>
+              <input type="text" name="name" class="form-control" {% if user.is_authenticated %} value="{{ user.username }}" {% endif %} required>
+            </div>
+            <div class="form-group">
+              <label for="email" class="col-form-label">Email:</label>
+              <input type="email" name="email" class="form-control" {% if user.is_authenticated %} value="{{ user.email }}" {% endif %} required>
+            </div>
+            <div class="form-group">
+              <label for="phone" class="col-form-label">Phone:</label>
+              <input type="text" name="phone" class="form-control">
+            </div>
+            <div class="form-group">
+              <label for="message" class="col-form-label">Message:</label>
+              <textarea name="message" class="form-control"></textarea>
+            </div>
+            <hr>
+            <input type="submit" value="Send" class="btn btn-block btn-secondary">
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+{%endif%}
+
+{%endblock content%}

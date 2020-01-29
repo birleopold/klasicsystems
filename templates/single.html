@@ -1,0 +1,222 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load django_template_maths %}
+
+
+{%block content%}
+
+{%if product%}
+
+<div class="container single_product_container">
+    <div class="row">
+        <div class="col">
+
+            <!-- Breadcrumbs -->
+
+            <div class="breadcrumbs d-flex flex-row align-items-center">
+                <ul>
+                    <li><a href="{%url 'home'%}">Home</a></li>
+                    <li><a href="#"><i class="fa fa-angle-right" aria-hidden="true"></i>{{product.category}}</a></li>
+                    <li class="active"><a href="#"><i class="fa fa-angle-right" aria-hidden="true"></i>{{product.title}}</a></li>
+                </ul>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-7">
+            <div class="single_product_pics">
+                <div class="row">
+                    <div class="col-lg-3 thumbnails_col order-lg-1 order-2">
+                        <div class="single_product_thumbnails">
+                            <ul>
+                                <li><img src="{{product.photo.url}}" ></li>
+                                <li class="active"><img src="{{product.photo1.url}}"></li>
+                                <li><img src="{{product.photo2.url}}" ></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-lg-9 image_col order-lg-2 order-1">
+                        <div class="single_product_image">
+                            <div class="single_product_image_background" style="background-image:url({{STATIC_URL}}{{product.photo.url}})"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-5">
+            <div class="product_details">
+                <div class="product_details_title">
+                    <h2>{{product.title}}</h2>
+                    <p>{{product.summary}}</p>
+                </div>
+                <div class="free_delivery d-flex flex-row align-items-center justify-content-center">
+                    <button class="btn-primary btn-block btn-lg" data-toggle="modal" data-target="#inquiryModal">Make An Inquiry</button>
+                </div>
+                <div class="original_price">ugx {{product.price|mul:1.04|add_decimal:1}}</div>
+                <div class="product_price">ugx {{product.price}}</div>
+                
+                
+                <div class="quantity d-flex flex-column flex-sm-row align-items-sm-center">
+                    <span>Available in stock:</span>
+                    <div class="quantity_selector">
+                        
+                        <span id="quantity_value">{{product.quantity}}</span>
+                     
+                    </div>
+                    <div class="red_button add_to_cart_button"><a href="{%url 'contact'%}">Inquire</a></div>
+                    <div class="product_favorite d-flex flex-column align-items-center justify-content-center"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<!-- Tabs -->
+
+<div class="tabs_section_container">
+
+    <div class="container">
+        
+        <div class="row">
+            <div class="col">
+
+                <!-- Tab Description -->
+
+                <div id="tab_1" class="tab_container active">
+                    <div class="row">
+                        <div class="col-lg-5 desc_col">
+                            <div class="tab_title">
+                                <h4>Description</h4>
+                            </div>
+                            <div class="tab_text_block">
+                                <h2>{{product.slug}}</h2>
+                                <p>{{product.description}}</p>
+                            </div>
+                            <div class="tab_image">
+                                <img src="{{product.photo.url}}" alt="">
+                            </div>
+                           
+                        </div>
+                        <div class="col-lg-5 offset-lg-2 desc_col">
+                            <div class="tab_image">
+                                <img src="{{product.photo1.url}}" alt="">
+                            </div>
+                            
+                            <div class="tab_image desc_last">
+                                <img src="{{product.photo2.url}}" alt="">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+               
+                
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<!-- Benefit -->
+
+<div class="benefit">
+    <div class="container">
+        <div class="row benefit_row">
+            <div class="col-lg-3 benefit_col">
+                <div class="benefit_item d-flex flex-row align-items-center">
+                    <div class="benefit_icon"><i class="fa fa-truck" aria-hidden="true"></i></div>
+                    <div class="benefit_content">
+                        <h6>free delivery around kampala</h6>
+                        <p>Suffered Alteration in Some Form</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 benefit_col">
+                <div class="benefit_item d-flex flex-row align-items-center">
+                    <div class="benefit_icon"><i class="fa fa-money" aria-hidden="true"></i></div>
+                    <div class="benefit_content">
+                        <h6>cach on delivery</h6>
+                        <p>The Internet Tend To Repeat</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 benefit_col">
+                <div class="benefit_item d-flex flex-row align-items-center">
+                    <div class="benefit_icon"><i class="fa fa-undo" aria-hidden="true"></i></div>
+                    <div class="benefit_content">
+                        <h6>1 weeks return</h6>
+                        <p>Making it Look Like Readable</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 benefit_col">
+                <div class="benefit_item d-flex flex-row align-items-center">
+                    <div class="benefit_icon"><i class="fa fa-clock-o" aria-hidden="true"></i></div>
+                    <div class="benefit_content">
+                        <h6>opening all week</h6>
+                        <p>8AM - 09PM</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Newsletter -->
+
+
+<div class="modal fade" id="inquiryModal" role="dialog">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="inquiryModalLabel">Make An Inquiry</h5>
+          <button type="button" class="close" data-dismiss="modal">
+            <span>&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form action="{% url 'contact' %}" method="POST">
+            {% csrf_token %}
+            {% if user.is_authenticated %}
+              <input type="hidden" name="user_id" value="{{ user.id }}">
+            {% else %}
+              <input type="hidden" name="user_id" value="0">
+            {% endif %}
+              <input type="hidden" name="product_id" value="{{ product.id }}">
+            <div class="form-group">
+              <label for="product_name" class="col-form-label">product:</label>
+              <input type="text" name="product_title" class="form-control" value="{{ product.title }}">
+            </div>
+            <div class="form-group">
+              <label for="name" class="col-form-label">Name:</label>
+              <input type="text" name="name" class="form-control" {% if user.is_authenticated %} value="{{ user.username }}" {% endif %} required>
+            </div>
+            <div class="form-group">
+              <label for="email" class="col-form-label">Email:</label>
+              <input type="email" name="email" class="form-control" {% if user.is_authenticated %} value="{{ user.email }}" {% endif %} required>
+            </div>
+            <div class="form-group">
+              <label for="phone" class="col-form-label">Phone:</label>
+              <input type="text" name="phone" class="form-control">
+            </div>
+            <div class="form-group">
+              <label for="message" class="col-form-label">Message:</label>
+              <textarea name="message" class="form-control"></textarea>
+            </div>
+            <hr>
+            <input type="submit" value="Send" class="btn btn-block btn-secondary">
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+{%endif%}
+
+{%endblock content%}
