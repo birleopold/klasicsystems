@@ -1,0 +1,15 @@
+{% extends 'admin/base.html'%}
+
+{% load static %}
+
+{%block branding%}
+<h1 id="head">
+    <img src="{% static 'images/logo.jpeg'%}" alt="Klasic systems" height='60' width='100' class="brand_img"> Klasic systems
+</h1>
+
+{%endblock%}
+
+{%block extrastyle %}
+
+<link rel="stylesheet" type="text/css" href="{%static 'css/admin.css'%}">
+{%endblock%}

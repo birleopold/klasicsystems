@@ -1,0 +1,32 @@
+
+
+
+#header{
+    background: #0d131a;
+    height: 80px;
+    color: honeydew;
+}
+#branding h1{
+
+    color: #ffffff;
+
+}
+
+a:link, a:visited{
+    color: #0d131a;
+}
+
+div.breadcrumbs a {
+    color: rgb(44, 51, 44);
+}
+div.breadcrumbs{
+    background: green;
+}
+
+.module caption, .inline-group h2{
+    background: rgb(221, 57, 57);
+}
+
+#recent-actions-module, .module{
+    background: rgb(231, 218, 95);
+}
