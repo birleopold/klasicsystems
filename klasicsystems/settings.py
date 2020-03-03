@@ -31,7 +31,6 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
-    'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
@@ -43,6 +42,8 @@ INSTALLED_APPS = [
     'categories',
     'django_template_maths',
     'contacts',
+    'grappelli',
+    'django.contrib.admin',
 ]
 
 MIDDLEWARE = [
@@ -119,6 +120,8 @@ USE_L10N = True
 
 USE_TZ = True
 
+
+GRAPPELLI_ADMIN_TITLE = 'Klassic Systems'
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
